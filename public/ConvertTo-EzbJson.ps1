@@ -12,14 +12,15 @@ function ConvertTo-EzbJson() {
     The Array, PsObject, or Hashtable object that should be serialized to json
 
     .EXAMPLE
-    $jsonText = @("One", "Two") | ConvertTo-EzbJson 
+    $jsonText = @("One", "Two") 
+    ConvertTo-EzbJson $jsonText
 #>
     Param(
-        [Parameter(Position = 0, Mandatory = $true, ValueFromPipeline = $True )]
-        [Object] $InputObject
+        [Parameter(Position = 0, Mandatory = $true )]
+        $InputObject
     )
 
-    $Settings = New-Object -TypeName "Newtonsoft.Json.JsonSerializerSettings"
+    $Settings = New-Object  "Newtonsoft.Json.JsonSerializerSettings"
     $Settings.ContractResolver = New-Object "Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver"
     $settings.Converters.Add($(New-Object "Newtonsoft.Json.Converters.StringEnumConverter"))
 
